@@ -48,7 +48,7 @@ h1 {
 }
 
 .square {
-  background-color: #eee;
+  background-color: rgb(37, 34, 34);
   border-radius: 8px;
   box-shadow: 0px 4px #ddd;
   text-align: center;
@@ -57,5 +57,5 @@ h1 {
   font-weight: bold;
   width: 100px;
   height: 100px;
-  cursor: pointer;
+  cursor: po;
 }
