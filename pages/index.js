@@ -1,10 +1,26 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+
+const WINNING_COMBO = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+]
 
 export default function Home () {
 
   const [xTurn, setXturn] = useState(true)
+  const [won, setWon] = useState(false)
+  const [wonCombo, setWonCombo] = useState([])
+  const [modalTitle, setModalTitle] = useState("")
+  const [isDraw, setIsDraw] = useState(false)
   const [boardData, setBoardData] = useState( {
     0: "",
     1: "",
@@ -16,6 +32,10 @@ export default function Home () {
     8: "",
   });
 
+   useEffect( () =>{
+    checkWinner();
+   }, [boardData])
+
   const updateBoardData = (idx) => {
     if(!boardData[idx]){
       //checking whether our index is empty or not 
@@ -25,12 +45,46 @@ export default function Home () {
     }
   }
 
+  const checkDraw = () => {
+    let check = Object.keys(boardData).every((v) => boardData[v])
+    if(check) setIsDraw(check)
+    if (check) setModalTitle("The Match is a draw😁")
+  }
+  const checkWinner = () => {
+    WINNING_COMBO.map((bd) => {
+      const [a, b, c] = bd;
+      if (
+        boardData[a] &&
+        boardData[a] === boardData[b] &&
+        boardData[a] === boardData[c]
+      ) {
+        setWon(true)
+        setWonCombo([a, b, c]);
+        setModalTitle(`Player ${!xTurn ? "X" : "O"} Won😊`)
+
+        return
+      }
+    })
+  }
+
+  const reset = () => {
+    setBoardData( {
+      0: "", 1: "",  2: "", 3: "",  4: "", 5: "", 6: "", 7: "", 8: "",
+  })
+
+  setXturn(true);
+  setWon(false);
+  setWon( false)
+  setIsDraw(false)
+  setModalTitle("")
+}
   return (
      <div>
       <h1>Welcome to Tic Tac Toe </h1>
      <div className="game">
        <div className="game-menu">
         <p>{ xTurn=== true ? "X Turn" : "O Turn"}</p>
+        <p>{`Game Won: ${won} |  Draw: ${isDraw} `}</p>
        </div>
        <div className="game-board">
         {[...Array(9)].map((v, idx) => {
@@ -47,10 +101,11 @@ export default function Home () {
         })}
        </div>
      </div>
-      <p>user to click here after playing to see the diffrence in move will you state management with count </p>
-      <p>two entities will be playing this game </p>
-      <p>will add react conffet after the game has completed </p>
-      <p>try to add the total score</p>
+     <div className={`modal ${modalTitle ? "show" : ""}`}>
+       <div className="modal-title">{modalTitle}</div>
+       <button onClick={reset}>New Game🎮</button>
+     </div>
+      
      </div>
   );
 }
