@@ -84,7 +84,7 @@ export default function Home () {
      <div className="game">
        <div className="game-menu">
         <p>{ xTurn=== true ? "X Turn" : "O Turn"}</p>
-        <p>{`Game Won: ${won} |  Draw: ${isDraw} `}</p>
+        <p>{`Game Won: ${won}  Draw: ${isDraw} `}</p>
        </div>
        <div className="game-board">
         {[...Array(9)].map((v, idx) => {
@@ -105,7 +105,6 @@ export default function Home () {
        <div className="modal-title">{modalTitle}</div>
        <button onClick={reset}>New Game🎮</button>
      </div>
-      
      </div>
   );
 }
