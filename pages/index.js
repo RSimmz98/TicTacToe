@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-
+import { HOMEPAGE_URL } from "../.config";
 
 const WINNING_COMBO = [
   [0, 1, 2],
@@ -78,6 +78,8 @@ export default function Home () {
   setIsDraw(false)
   setModalTitle("")
 }
+
+const today = new Date()
   return (
      <div>
       <h1>Welcome to Tic Tac Toe </h1>
@@ -105,6 +107,10 @@ export default function Home () {
        <div className="modal-title">{modalTitle}</div>
        <button onClick={reset}>New Game🎮</button>
      </div>
+     <footer>
+     &copy; {today.getFullYear()}
+     <a href={HOMEPAGE_URL}> Richson Simbabure</a>. All rights reserved.
+     </footer>
      </div>
   );
 }

@@ -102,3 +102,10 @@ button {
 .modal.show {
   transform: translate(-50%, -50%) scale(1);
 }
+
+footer {
+  text-align: center;
+  padding: 4px;
+  margin-top: 12px;
+  
+}
